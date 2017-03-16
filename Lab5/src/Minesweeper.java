@@ -5,7 +5,7 @@ public class Minesweeper {
 	private int xsize = 9; 
 	private int ysize = 9;
 	private int bombNum = 9; 
-	private boolean bombs[][]; 
+	private boolean bombs[][] = new boolean[xsize][ysize]; 
 	
 	Minesweeper() {
 		System.out.println("iniated");
@@ -19,14 +19,17 @@ public class Minesweeper {
 		for(int i = 0; i<this.bombNum; i++) {
 			x = generator.nextInt(xsize); 
 			y = generator.nextInt(ysize); 
+						
 			
-			bombs[x][y] = true;
-			
-			/*if(bombs[x][y]==true) {
+			if(bombs[x][y]==true) {
 				System.out.println("same");
 				i -= 1;
 				System.out.println("bomb is in [" + x + " ]" + "[" + y + " ]" );
-			}*/			 
+			}		
+			
+			else{
+				bombs[x][y] = true;
+			}
 		}
 	}
 }
