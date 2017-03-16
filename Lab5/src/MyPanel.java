@@ -46,6 +46,14 @@ public class MyPanel extends JPanel {
 		return size;
 	}
 	
+	public int getColumnSize() {
+		return TOTAL_COLUMNS; 
+	}
+	
+	public int getRowsSize() {
+		return TOTAL_ROWS; 
+	}
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
