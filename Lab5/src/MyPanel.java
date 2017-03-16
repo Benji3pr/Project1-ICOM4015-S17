@@ -39,6 +39,13 @@ public class MyPanel extends JPanel {
 			}
 		}
 	}
+	
+	public int getGridSize(){
+		int size = 0;		
+		size = (TOTAL_COLUMNS)*(TOTAL_ROWS);		
+		return size;
+	}
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
