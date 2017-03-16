@@ -7,10 +7,21 @@ public class Minesweeper {
 	boolean bombs[][]; 
 	
 	public void Minesweeper() {
-		generateBombs(); 
+		this.generateBombs(); 
 	}
 	
-	public void generateBombs() {
+	public void generateBombs(int bombCount) {
+		int x; 
+		int y; 
 		
+		for(int i = 0; i<bombCount; i++) {
+			x = generator.nextInt(xsize); 
+			y = generator.nextInt(ysize); 
+			
+			if(bombs[x][y]==true) {
+				System.out.println("same");
+			}
+			bombs[x][y] = true; 
+		}
 	}
 }
