@@ -9,7 +9,8 @@ import javax.swing.JFrame;
 
 public class MyMouseAdapter extends MouseAdapter {
 	private Random generator = new Random();
-
+	public Minesweeper myMinesweeper;
+	
 	public void mousePressed(MouseEvent e) {
 		Component c = e.getComponent();
 		while (!(c instanceof JFrame)) {
@@ -101,12 +102,7 @@ public class MyMouseAdapter extends MouseAdapter {
 
 							if(oldColor.equals(Color.RED)){
 
-							}
-							
-							
-
-							else{	Color newColor = Color.white;   	
-
+							} else{	Color newColor = Color.white;   	
 									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 									myPanel.repaint();}
 						

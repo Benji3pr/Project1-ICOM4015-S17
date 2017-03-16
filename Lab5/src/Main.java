@@ -13,14 +13,14 @@ public class Main {
 		MyMouseAdapter myMouseAdapter = new MyMouseAdapter();
 		myFrame.addMouseListener(myMouseAdapter);
 		
-		int bombNum = 80; 
+		
+		int bombNum = 10; 
 		int columns = myPanel.getColumnSize(); 
 		int rows = myPanel.getRowsSize(); 
 		
-		Minesweeper myMinesweeper= new Minesweeper(columns, rows, bombNum); 
-				
-		myMinesweeper.setBombColumn(columns); 
-		myMinesweeper.setBombRow(rows);
+		Minesweeper mainMinesweeper= new Minesweeper(columns, rows, bombNum); 
+		
+		myMouseAdapter.myMinesweeper = mainMinesweeper; 
 		
 		myFrame.setVisible(true);
 	}

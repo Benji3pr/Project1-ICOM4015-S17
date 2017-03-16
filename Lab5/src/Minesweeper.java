@@ -10,13 +10,12 @@ public class Minesweeper {
 	Minesweeper(int columns, int rows, int bombs) {
 		setBombColumn(columns);
 		setBombRow(rows);
-		
 		setBombNum(bombs);
-		System.out.println(bombs);
+		
 		generateBombs(); 
 		printBombs();
 	}
-	
+		
 	public void setBombColumn(int column) {
 		this.column = column;
 	}
@@ -42,12 +41,11 @@ public class Minesweeper {
 
 	public void printBombs() {
 		for(int i = 0; i<column; i++) {
-			for(int j = 0; j<column; j++) {
+			for(int j = 0; j<row; j++) {
 				System.out.println("bomb in " + i + ", " + j + ":" + bombs[i][j]);
 			}
 		}
 	}
-	
 	
 	private void generateBombs() {
 		int x; 
