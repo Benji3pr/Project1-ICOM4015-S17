@@ -32,6 +32,8 @@ public class MyMouseAdapter extends MouseAdapter {
 		myPanel.mouseDownGridX = myPanel.getGridX(x, y);
 		myPanel.mouseDownGridY = myPanel.getGridY(x, y);
 		myPanel.repaint();
+		int gridX = myPanel.getGridX(x, y);
+		int gridY = myPanel.getGridY(x, y);
 
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
@@ -39,6 +41,11 @@ public class MyMouseAdapter extends MouseAdapter {
 			break;
 		case 3:		//Right mouse button
 			//Do nothing
+			
+			if ((gridX == -1) || (gridY == -1)) {
+				//Is releasing outside
+				//Do nothing
+			}
 			Color oldColor = myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
 
 			if(oldColor.equals(Color.RED)){
@@ -102,7 +109,10 @@ public class MyMouseAdapter extends MouseAdapter {
 
 							if(oldColor.equals(Color.RED)){
 
-							} else{	Color newColor = Color.white;   	
+							} else{	Color newColor = Color.white; 
+									if(myMinesweeper.checkBomb(gridX, gridY)){
+										newColor = Color.black;
+									}
 									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 									myPanel.repaint();}
 						
