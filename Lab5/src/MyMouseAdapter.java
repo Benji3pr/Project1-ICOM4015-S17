@@ -95,7 +95,7 @@ public class MyMouseAdapter extends MouseAdapter {
 						//Released the mouse button on the same cell where it was pressed
 							
 							//On the left column and on the top row... do nothing
-						 	
+						 	//
 							//On the grid other than on the left column and on the top row:
 							Color oldColor = myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
 
