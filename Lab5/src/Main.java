@@ -12,6 +12,9 @@ public class Main {
 //
 		MyMouseAdapter myMouseAdapter = new MyMouseAdapter();
 		myFrame.addMouseListener(myMouseAdapter);
+		
+		Minesweeper mineSweeperGame = new Minesweeper(); 
+		
 
 		myFrame.setVisible(true);
 	}
