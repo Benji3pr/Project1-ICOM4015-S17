@@ -80,8 +80,10 @@ public class MyMouseAdapter extends MouseAdapter {
 							//On the left column and on the top row... do nothing
 						} else {
 							//On the grid other than on the left column and on the top row:
-							Color newColor = Color.black;
+
+							Color newColor = Color.WHITE;
 							
+
 							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 							myPanel.repaint();
 						}
