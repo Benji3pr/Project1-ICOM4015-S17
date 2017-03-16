@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 public class MyMouseAdapter extends MouseAdapter {
 	private Random generator = new Random();
+	
 	public void mousePressed(MouseEvent e) {
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
@@ -80,7 +81,7 @@ public class MyMouseAdapter extends MouseAdapter {
 							//On the left column and on the top row... do nothing
 						} else {
 							//On the grid other than on the left column and on the top row:
-							Color newColor = Color.black;
+							Color newColor = Color.white;
 							
 							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 							myPanel.repaint();
