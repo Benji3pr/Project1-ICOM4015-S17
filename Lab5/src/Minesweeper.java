@@ -7,9 +7,14 @@ public class Minesweeper {
 	private int bombNum = 9; 
 	private boolean bombs[][] = new boolean[column][row]; 
 	
-	Minesweeper() {
-		System.out.println("iniated");
+	Minesweeper(int columns, int rows, int bombs) {
+		setBombColumn(columns);
+		setBombRow(rows);
+		
+		setBombNum(bombs);
+		System.out.println(bombs);
 		generateBombs(); 
+		printBombs();
 	}
 	
 	public void setBombColumn(int column) {
@@ -35,6 +40,15 @@ public class Minesweeper {
 		return false;
 	}
 
+	public void printBombs() {
+		for(int i = 0; i<column; i++) {
+			for(int j = 0; j<column; j++) {
+				System.out.println("bomb in " + i + ", " + j + ":" + bombs[i][j]);
+			}
+		}
+	}
+	
+	
 	private void generateBombs() {
 		int x; 
 		int y; 
@@ -43,11 +57,8 @@ public class Minesweeper {
 			x = generator.nextInt(column); 
 			y = generator.nextInt(row); 
 						
-			
 			if(bombs[x][y]==true) {
-				System.out.println("same");
 				i -= 1;
-				System.out.println("bomb is in [" + x + " ]" + "[" + y + " ]" );
 			}		
 			
 			else{
