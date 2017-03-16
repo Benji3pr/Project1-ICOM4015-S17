@@ -145,6 +145,38 @@ public class MyMouseAdapter extends MouseAdapter {
                                 
                                     
                             }
+                            
+                            else if((gridX == 0) && (gridY == 0)){
+                                for(int i=1;i<10;i++){
+                                    myPanel.mouseDownGridY =i;
+                                    myPanel.mouseDownGridX =i;
+                                    oldColor = myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
+                                    Color newColor = null;
+                                    switch (generator.nextInt(4)) {
+                                    case 0:
+                                        newColor = Color.YELLOW;
+                                        break;
+                                    case 1:
+                                        newColor = Color.MAGENTA;
+                                        break;
+                                    case 2:
+                                        newColor = Color.BLACK;
+                                        break;
+                                    case 3:
+                                        newColor = new Color(0x964B00);   //Brown (from http://simple.wikipedia.org/wiki/List_of_colors)
+                                        break;
+
+                                    }
+                                    
+                                    if(oldColor.equals(newColor)){
+                                        newColor = new Color(0xB57EDC);   //Lavender (from http://simple.wikipedia.org/wiki/List_of_colors)
+
+                                    }
+                                    myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
+                                    myPanel.repaint();
+                                    
+                                }
+                            }
 
                             //On the left column and on the top row... do nothing
                         } else {
