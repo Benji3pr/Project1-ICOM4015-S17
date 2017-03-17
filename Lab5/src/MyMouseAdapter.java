@@ -109,12 +109,34 @@ public class MyMouseAdapter extends MouseAdapter {
 
 							if(oldColor.equals(Color.RED)){
 
-							} else{	Color newColor = Color.white; 
-									if(myMinesweeper.checkBomb(gridX, gridY)){
-										newColor = Color.black;
+							} else {
+								Color newColor = Color.white; 
+								if(myMinesweeper.checkBomb(gridX, gridY)){
+									newColor = Color.black;
+									int column = myMinesweeper.getBombColumn();
+									int row = myMinesweeper.getBombRow();
+									for(int i = 0; i<column; i++) {
+										for(int j = 0; j<row; j++) {
+											if(myMinesweeper.checkBomb(i, j)){ 
+												if (myPanel.colorArray[i][j].equals(Color.red)) {
+													myPanel.colorArray[i][j] = Color.red;
+												} else {
+													myPanel.colorArray[i][j] = Color.black;
+												}
+											} else { 
+												if (myPanel.colorArray[i][j].equals(Color.red)) {
+													myPanel.colorArray[i][j] = Color.red;
+												} else {
+													myPanel.colorArray[i][j] = Color.white;
+												}
+											}
+											myPanel.repaint();
+										}
 									}
-									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
-									myPanel.repaint();}
+								} 
+								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
+								myPanel.repaint();
+							}
 						
 					}
 				}

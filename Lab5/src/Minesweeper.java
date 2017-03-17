@@ -5,7 +5,7 @@ public class Minesweeper {
 	private int column = 9; 
 	private int row = 9;
 	private int bombNum = 9; 
-	private boolean bombs[][] = new boolean[column][row]; 
+	private boolean bombs[][] = new boolean[column][row];  
 	
 	Minesweeper(int columns, int rows, int bombs) {
 		setBombColumn(columns);
@@ -15,7 +15,14 @@ public class Minesweeper {
 		generateBombs(); 
 		printBombs();
 	}
-		
+	public int getBombColumn() {
+		return column;
+	}
+
+	public int getBombRow() {
+		return row;
+	}
+	
 	public void setBombColumn(int column) {
 		this.column = column;
 	}
