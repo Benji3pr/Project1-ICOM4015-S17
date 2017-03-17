@@ -110,14 +110,17 @@ public class MyMouseAdapter extends MouseAdapter {
 						if(oldColor.equals(Color.RED)){
 
 						} else {
+							boolean bombed = false;
+							int column = myMinesweeper.getBombColumn();
+							int row = myMinesweeper.getBombRow();
 							Color newColor = Color.white; 
 							if(myMinesweeper.checkBomb(gridX, gridY)){
 								newColor = Color.black;
-								int column = myMinesweeper.getBombColumn();
-								int row = myMinesweeper.getBombRow();
+								
 								for(int i = 0; i<column; i++) {
 									for(int j = 0; j<row; j++) {
 										if(myMinesweeper.checkBomb(i, j)){ 
+											bombed = true;
 											if (myPanel.colorArray[i][j].equals(Color.red)) {
 												myPanel.colorArray[i][j] = Color.red;
 											} else {
@@ -128,14 +131,34 @@ public class MyMouseAdapter extends MouseAdapter {
 												myPanel.colorArray[i][j] = Color.red;
 											} else {
 												myPanel.colorArray[i][j] = Color.white;
+												
 											}
 										}
 										myPanel.repaint();
 									}
 								}
 							} 
+							
+							if(bombed){
+								for(int i = 0; i<column; i++) {
+									for(int j = 0; j<row; j++) {
+										Color currentColor = myPanel.colorArray[i][j];
+
+										if(currentColor.equals(Color.white)){
+											int num = Integer.parseInt(myMinesweeper.checkBombsArround(i, j));
+											if(num>0){
+												myPanel.numOfBombs[i][j]=(myMinesweeper.checkBombsArround(i, j));
+											}
+										}
+									}
+								}								
+							}
+							
 							if(newColor.equals(Color.white)){
-								System.out.println(myMinesweeper.checkBombsArround(gridX, gridY));
+								int num = Integer.parseInt(myMinesweeper.checkBombsArround(gridX, gridY));
+								if(num>0){
+									myPanel.numOfBombs[gridX][gridY]=(myMinesweeper.checkBombsArround(gridX, gridY));
+								}
 							}
 							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 							myPanel.repaint();
