@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 public class MyMouseAdapter extends MouseAdapter {
 	private Random generator = new Random();
 	public Minesweeper myMinesweeper;
-	
+
 	public void mousePressed(MouseEvent e) {
 		Component c = e.getComponent();
 		while (!(c instanceof JFrame)) {
@@ -41,7 +41,7 @@ public class MyMouseAdapter extends MouseAdapter {
 			break;
 		case 3:		//Right mouse button
 			//Do nothing
-			
+
 			if ((gridX == -1) || (gridY == -1)) {
 				//Is releasing outside
 				//Do nothing
@@ -101,43 +101,46 @@ public class MyMouseAdapter extends MouseAdapter {
 						//Do nothing
 					} else {
 						//Released the mouse button on the same cell where it was pressed
-							
-							//On the left column and on the top row... do nothing
-						 	//
-							//On the grid other than on the left column and on the top row:
-							Color oldColor = myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
 
-							if(oldColor.equals(Color.RED)){
+						//On the left column and on the top row... do nothing
+						//
+						//On the grid other than on the left column and on the top row:
+						Color oldColor = myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
 
-							} else {
-								Color newColor = Color.white; 
-								if(myMinesweeper.checkBomb(gridX, gridY)){
-									newColor = Color.black;
-									int column = myMinesweeper.getBombColumn();
-									int row = myMinesweeper.getBombRow();
-									for(int i = 0; i<column; i++) {
-										for(int j = 0; j<row; j++) {
-											if(myMinesweeper.checkBomb(i, j)){ 
-												if (myPanel.colorArray[i][j].equals(Color.red)) {
-													myPanel.colorArray[i][j] = Color.red;
-												} else {
-													myPanel.colorArray[i][j] = Color.black;
-												}
-											} else { 
-												if (myPanel.colorArray[i][j].equals(Color.red)) {
-													myPanel.colorArray[i][j] = Color.red;
-												} else {
-													myPanel.colorArray[i][j] = Color.white;
-												}
+						if(oldColor.equals(Color.RED)){
+
+						} else {
+							Color newColor = Color.white; 
+							if(myMinesweeper.checkBomb(gridX, gridY)){
+								newColor = Color.black;
+								int column = myMinesweeper.getBombColumn();
+								int row = myMinesweeper.getBombRow();
+								for(int i = 0; i<column; i++) {
+									for(int j = 0; j<row; j++) {
+										if(myMinesweeper.checkBomb(i, j)){ 
+											if (myPanel.colorArray[i][j].equals(Color.red)) {
+												myPanel.colorArray[i][j] = Color.red;
+											} else {
+												myPanel.colorArray[i][j] = Color.black;
 											}
-											myPanel.repaint();
+										} else { 
+											if (myPanel.colorArray[i][j].equals(Color.red)) {
+												myPanel.colorArray[i][j] = Color.red;
+											} else {
+												myPanel.colorArray[i][j] = Color.white;
+											}
 										}
+										myPanel.repaint();
 									}
-								} 
-								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
-								myPanel.repaint();
+								}
+							} 
+							if(newColor.equals(Color.white)){
+								System.out.println(myMinesweeper.checkBombsArround(gridX, gridY));
 							}
-						
+							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
+							myPanel.repaint();
+						}
+
 					}
 				}
 			}
