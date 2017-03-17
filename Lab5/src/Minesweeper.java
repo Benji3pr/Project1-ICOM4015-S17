@@ -136,7 +136,7 @@ public class Minesweeper {
 			}
 		}
 		
-		else if(y==0 && x>0 && x<7){
+		else if(y==0 && x>0 && x<8){
 			x-=1;
 			for(int i=x; i<(x+3); i++){
 				for(int j=y; j<(y+2); j++){
@@ -147,7 +147,7 @@ public class Minesweeper {
 			}
 		}
 		
-		else if(y==0 && x>0 && x<7){
+		else if(y==8 && x>0 && x<8){
 			x-=1;
 			y-=1;
 			for(int i=x; i<(x+3); i++){
