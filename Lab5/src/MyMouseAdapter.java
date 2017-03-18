@@ -3,15 +3,17 @@ import java.awt.Component;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
 
 public class MyMouseAdapter extends MouseAdapter {
 	private Random generator = new Random();
+	public int flaggedBombs = 0;  
 	public Minesweeper myMinesweeper;
 
-	public void mousePressed(MouseEvent e) {
+public void mousePressed(MouseEvent e) {
 		Component c = e.getComponent();
 		while (!(c instanceof JFrame)) {
 			c = c.getParent();
@@ -34,7 +36,27 @@ public class MyMouseAdapter extends MouseAdapter {
 		myPanel.repaint();
 		int gridX = myPanel.getGridX(x, y);
 		int gridY = myPanel.getGridY(x, y);
-
+		
+		if(flaggedBombs==myMinesweeper.getBombCount()) {
+			String bombAround; 
+			int num; 
+			for(int i = 0; i<myMinesweeper.getBombColumn(); i++) {
+				for(int j = 0; j<myMinesweeper.getBombRow(); j++) {
+					bombAround = myMinesweeper.checkBombsArround(i, j); 
+					num = Integer.parseInt(bombAround);
+					if (myPanel.colorArray[i][j].equals(Color.red)) {
+						myPanel.colorArray[i][j] = Color.red;
+					} else if(num>0){
+						myPanel.numOfBombs[i][j]=(bombAround);
+						myPanel.colorArray[i][j] = Color.white;
+					} else {
+						myPanel.colorArray[i][j] = Color.white;
+					}
+					myPanel.repaint();
+				}
+			}
+		}
+		
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
 
@@ -55,10 +77,15 @@ public class MyMouseAdapter extends MouseAdapter {
 				myPanel.repaint();
 			}
 
-			else if (oldColor.equals(Color.GRAY)){Color newColor = Color.RED;
-
-			myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
-			myPanel.repaint();}
+			else if (oldColor.equals(Color.GRAY)){
+				Color newColor = Color.RED;
+				
+				if(myMinesweeper.checkBomb(gridX, gridY)){
+					flaggedBombs+=1;
+				}
+				myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
+				myPanel.repaint();
+			}
 
 			break;
 		default:    //Some other button (2 = Middle mouse button, etc.)
@@ -108,15 +135,15 @@ public class MyMouseAdapter extends MouseAdapter {
 						Color oldColor = myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
 
 						if(oldColor.equals(Color.RED)){
-
+							//Do nothing. It's flagged. 
 						} else {
 							boolean bombed = false;
 							int column = myMinesweeper.getBombColumn();
 							int row = myMinesweeper.getBombRow();
 							Color newColor = Color.white; 
+							
 							if(myMinesweeper.checkBomb(gridX, gridY)){
 								newColor = Color.black;
-								
 								for(int i = 0; i<column; i++) {
 									for(int j = 0; j<row; j++) {
 										if(myMinesweeper.checkBomb(i, j)){ 
@@ -139,15 +166,19 @@ public class MyMouseAdapter extends MouseAdapter {
 								}
 							} 
 							
+							String num;
+							int numAround; 
+							
 							if(bombed){
 								for(int i = 0; i<column; i++) {
 									for(int j = 0; j<row; j++) {
 										Color currentColor = myPanel.colorArray[i][j];
 
 										if(currentColor.equals(Color.white)){
-											int num = Integer.parseInt(myMinesweeper.checkBombsArround(i, j));
-											if(num>0){
-												myPanel.numOfBombs[i][j]=(myMinesweeper.checkBombsArround(i, j));
+											num = myMinesweeper.checkBombsArround(i, j);
+											numAround = Integer.parseInt(num);
+											if(numAround>0){
+												myPanel.numOfBombs[i][j]=(num);
 											}
 										}
 									}
@@ -155,9 +186,10 @@ public class MyMouseAdapter extends MouseAdapter {
 							}
 							
 							if(newColor.equals(Color.white)){
-								int num = Integer.parseInt(myMinesweeper.checkBombsArround(gridX, gridY));
-								if(num>0){
-									myPanel.numOfBombs[gridX][gridY]=(myMinesweeper.checkBombsArround(gridX, gridY));
+								num = myMinesweeper.checkBombsArround(gridX, gridY);
+								numAround = Integer.parseInt(num);
+								if(numAround>0){
+									myPanel.numOfBombs[gridX][gridY]=(num);
 								}
 							}
 							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;

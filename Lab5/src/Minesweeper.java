@@ -23,6 +23,10 @@ public class Minesweeper {
 		return row;
 	}
 	
+	public int getBombCount() {
+		return bombNum; 
+	}
+	
 	public void setBombColumn(int column) {
 		this.column = column;
 	}
