@@ -9,11 +9,15 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 public class MyMouseAdapter extends MouseAdapter {
-	private Random generator = new Random();
-	public int flaggedBombs = 0;  
-	public Minesweeper myMinesweeper;
+private Random generator = new Random();
+private int flaggedBombs = 0;  
+public Minesweeper myMinesweeper;
+private boolean enabled = true; 
 
 public void mousePressed(MouseEvent e) {
+		if (!enabled) {
+		    return;
+		}
 		Component c = e.getComponent();
 		while (!(c instanceof JFrame)) {
 			c = c.getParent();
@@ -55,8 +59,8 @@ public void mousePressed(MouseEvent e) {
 					myPanel.repaint();
 				}
 			}
+			enabled = false;
 		}
-		
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
 
@@ -92,8 +96,13 @@ public void mousePressed(MouseEvent e) {
 			//Do nothing
 			break;
 		}
-	}
-	public void mouseReleased(MouseEvent e) {
+}
+
+
+public void mouseReleased(MouseEvent e) {
+		if (!enabled) {
+		    return;
+		}
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
 			Component c = e.getComponent();
@@ -164,6 +173,7 @@ public void mousePressed(MouseEvent e) {
 										myPanel.repaint();
 									}
 								}
+								enabled = false;
 							} 
 							
 							String num;
@@ -207,6 +217,63 @@ public void mousePressed(MouseEvent e) {
 		default:    //Some other button (2 = Middle mouse button, etc.)
 			//Do nothing
 			break;
+		}
+}
+
+public void disableMouse(MouseEvent e) {
+	Component c = e.getComponent();
+	while (!(c instanceof JFrame)) {
+		c = c.getParent();
+		if (c == null) {
+			return;
+		}
+	}
+	JFrame myFrame = (JFrame) c;
+	MyPanel myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);
+	Insets myInsets = myFrame.getInsets();
+	int x1 = myInsets.left;
+	int y1 = myInsets.top;
+	e.translatePoint(-x1, -y1);
+	int x = e.getX();
+	int y = e.getY();
+	myPanel.x = x;
+	myPanel.y = y;
+	myPanel.mouseDownGridX = myPanel.getGridX(x, y);
+	myPanel.mouseDownGridY = myPanel.getGridY(x, y);
+	myPanel.repaint();
+	int gridX = myPanel.getGridX(x, y);
+	int gridY = myPanel.getGridY(x, y);
+
+	if(flaggedBombs==myMinesweeper.getBombCount()) {
+		String bombAround; 
+		int num; 
+		for(int i = 0; i<myMinesweeper.getBombColumn(); i++) {
+			for(int j = 0; j<myMinesweeper.getBombRow(); j++) {
+				bombAround = myMinesweeper.checkBombsArround(i, j); 
+				num = Integer.parseInt(bombAround);
+				if (myPanel.colorArray[i][j].equals(Color.red)) {
+					myPanel.colorArray[i][j] = Color.red;
+				} else if(num>0){
+					myPanel.numOfBombs[i][j]=(bombAround);
+					myPanel.colorArray[i][j] = Color.white;
+				} else {
+					myPanel.colorArray[i][j] = Color.white;
+				}
+				myPanel.repaint();
+			}
+		}
+	}
+	
+		switch (e.getButton()) {
+			case 1:		//Left mouse button
+			
+				break;
+			case 3:		//Right mouse button
+				//Do nothing
+				break;
+			default:    //Some other button (2 = Middle mouse button, etc.)
+				//Do nothing
+				break;
 		}
 	}
 }
