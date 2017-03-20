@@ -166,7 +166,7 @@ public void mouseReleased(MouseEvent e) {
 											if (myPanel.colorArray[i][j].equals(Color.red)) {
 												myPanel.colorArray[i][j] = Color.red;
 											} else {
-												myPanel.colorArray[i][j] = Color.white;
+												//myPanel.colorArray[i][j] = Color.white;
 												
 											}
 										}

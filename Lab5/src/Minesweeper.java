@@ -13,7 +13,7 @@ public class Minesweeper {
 		setBombNum(bombs);
 		
 		generateBombs(); 
-		//printBombs();
+		printBombs();
 	}
 	public int getBombColumn() {
 		return column;
