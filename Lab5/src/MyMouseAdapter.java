@@ -4,6 +4,7 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -150,6 +151,8 @@ public void mouseReleased(MouseEvent e) {
 							int column = myMinesweeper.getBombColumn();
 							int row = myMinesweeper.getBombRow();
 							Color newColor = Color.white; 
+							String num;
+							int numAround; 
 							
 							if(myMinesweeper.checkBomb(gridX, gridY)){
 								newColor = Color.black;
@@ -165,19 +168,13 @@ public void mouseReleased(MouseEvent e) {
 										} else { 
 											if (myPanel.colorArray[i][j].equals(Color.red)) {
 												myPanel.colorArray[i][j] = Color.red;
-											} else {
-												//myPanel.colorArray[i][j] = Color.white;
-												
-											}
+											} 
 										}
 										myPanel.repaint();
 									}
 								}
 								enabled = false;
 							} 
-							
-							String num;
-							int numAround; 
 							
 							if(bombed){
 								for(int i = 0; i<column; i++) {
@@ -198,10 +195,32 @@ public void mouseReleased(MouseEvent e) {
 							if(newColor.equals(Color.white)){
 								num = myMinesweeper.checkBombsArround(gridX, gridY);
 								numAround = Integer.parseInt(num);
+								
+								
 								if(numAround>0){
 									myPanel.numOfBombs[gridX][gridY]=(num);
+								} else if(numAround==0) {
+									String[][] emptySpaces = myMinesweeper.getEmptySpaces(gridX, gridY);
+									
+									for (int i = 0; i < column; i++) {
+										for (int j = 0; j < row; j++) {
+											if(emptySpaces[i][j]!=null) {
+												if(emptySpaces[i][j]=="empty") {
+													newColor = Color.white;  
+												} else {
+													myPanel.numOfBombs[i][j]=(emptySpaces[i][j]);
+													newColor = Color.white; 
+													
+												}
+												myPanel.colorArray[i][j] = newColor;
+											}
+										}
+									}
 								}
+								
 							}
+							
+							
 							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 							myPanel.repaint();
 						}

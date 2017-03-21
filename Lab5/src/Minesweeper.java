@@ -5,7 +5,9 @@ public class Minesweeper {
 	private int column = 9; 
 	private int row = 9;
 	private int bombNum = 9; 
-	private boolean bombs[][] = new boolean[column][row];  
+	private boolean bombs[][] = new boolean[column][row]; 
+	
+	private String empty[][] = new String[column][row];
 	
 	Minesweeper(int columns, int rows, int bombs) {
 		setBombColumn(columns);
@@ -26,7 +28,11 @@ public class Minesweeper {
 	public int getBombCount() {
 		return bombNum; 
 	}
-	
+		
+	public String[][] getEmptySpaces(int x, int y) {
+		checkEmpty(x, y);
+		return empty; 
+	}
 	public void setBombColumn(int column) {
 		this.column = column;
 	}
@@ -166,6 +172,67 @@ public class Minesweeper {
 	
 		String totalAmount = Integer.toString(amount);
 		return totalAmount;
+	}
+	
+	private void checkEmpty(int x, int y) {
+		Boolean[][] checked = new Boolean[column][row];
+		
+		String bombAround = checkBombsArround(x, y); 
+		int numBommbAround = Integer.parseInt(bombAround);
+		
+		boolean inBoundsX = (x >= 0) && (x < column);
+		boolean inBoundsY = (y >= 0) && (y < row);
+		
+		if(inBoundsX&&inBoundsY) {
+			
+			if(checked[x][y]==null) {
+				checked[x][y] = false; 
+			}
+			
+			if(!checked[x][y]) {
+				if(!checkBomb(x, y)) {
+					if(numBommbAround==0) {
+						empty[x][y] = "empty"; 
+						checked[x][y] = true; 
+							if(!(x-1<0)) {
+								checkEmpty(x-1, y);
+								if(!(x-1<0&&y+1>=row)) { 
+										checkEmpty(x-1, y+1);
+										if(!(!(x+1>=column))) { 
+											checkEmpty(x+1, y);
+											if(!(x-1<0&&y-1<0)) {
+												checkEmpty(x-1, y-1);
+												if(!(x-1<0&&x+1>=column)) {
+													checkEmpty(x+1, y-1);
+													if(!(x+1>=column&&y+1>=row)) {
+														checkEmpty(x+1, y+1);
+														/*if(!(y+1>=row)) {
+															checkEmpty(x, y+1);
+															if(!(y-1<0)) {
+														
+															checkEmpty(x, y-1);
+														}
+														
+													}*/
+												}
+											}
+										}
+									}
+								}
+							}  
+						
+						
+					} else if(numBommbAround>0){
+						empty[x][y] = bombAround; 
+						checked[x][y] = true; 
+					}
+				}
+			}
+			
+			
+		} else {
+			return; 
+		}
 	}
 	
 	private void generateBombs() {
