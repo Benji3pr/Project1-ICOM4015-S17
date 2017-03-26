@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.Random;
 
 public class Minesweeper {
@@ -174,6 +175,19 @@ public class Minesweeper {
 		return totalAmount;
 	}
 	
+	public MyPanel paintDidWin(MyPanel myPanel) {
+		Color newColor = Color.cyan;
+		for(int i = 0; i<column; i++) {
+			for(int j = 0; j<row; j++) {
+				myPanel.colorArray[i][j] = newColor;
+				myPanel.numOfBombs[i][j] = "";
+			}
+			
+		}
+		
+		return myPanel;
+	}
+	
 	private void checkEmpty(int x, int y) {
 		Boolean[][] checked = new Boolean[column][row];
 		
@@ -194,34 +208,31 @@ public class Minesweeper {
 					if(numBommbAround==0) {
 						empty[x][y] = "empty"; 
 						checked[x][y] = true; 
-							if(!(x-1<0)) {
-								checkEmpty(x-1, y);
-								if(!(x-1<0&&y+1>=row)) { 
-										checkEmpty(x-1, y+1);
-										if(!(!(x+1>=column))) { 
-											checkEmpty(x+1, y);
-											if(!(x-1<0&&y-1<0)) {
-												checkEmpty(x-1, y-1);
-												if(!(x-1<0&&x+1>=column)) {
-													checkEmpty(x+1, y-1);
-													if(!(x+1>=column&&y+1>=row)) {
-														checkEmpty(x+1, y+1);
-														/*if(!(y+1>=row)) {
-															checkEmpty(x, y+1);
-															if(!(y-1<0)) {
-														
-															checkEmpty(x, y-1);
-														}
-														
-													}*/
-												}
+						
+						if(!(x-1<0)) {
+							checkEmpty(x-1, y);
+							if(!(x-1<0&&y+1>=row)) { 
+								checkEmpty(x-1, y+1);
+								if(!(!(x+1>=column))) { 
+									checkEmpty(x+1, y);
+									if(!(x-1<0&&y-1<0)) {
+										checkEmpty(x-1, y-1);
+										if(!(x-1<0&&x+1>=column)) {
+											checkEmpty(x+1, y-1);
+											if(!(x+1>=column&&y+1>=row)) {
+												checkEmpty(x+1, y+1);
+												/*if(!(y+1>=row)) {
+													checkEmpty(x, y+1);
+													if(!(y-1<0)) {
+														checkEmpty(x, y-1);
+													}
+												}*/
 											}
 										}
 									}
 								}
-							}  
-						
-						
+							}
+						}  
 					} else if(numBommbAround>0){
 						empty[x][y] = bombAround; 
 						checked[x][y] = true; 
@@ -234,6 +245,9 @@ public class Minesweeper {
 			return; 
 		}
 	}
+	
+	
+	
 	
 	private void generateBombs() {
 		int x; 

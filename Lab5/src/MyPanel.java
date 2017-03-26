@@ -3,6 +3,7 @@ import java.awt.Graphics;
 import java.awt.Insets;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class MyPanel extends JPanel {
@@ -60,6 +61,15 @@ public class MyPanel extends JPanel {
 	
 	public int getRowsSize() {
 		return TOTAL_ROWS; 
+	}
+	
+	
+	public void announceDidWinMessage(boolean didWin) {
+		if(didWin) {
+			JOptionPane.showMessageDialog(null,"YOU WON!");
+		} else {
+			JOptionPane.showMessageDialog(null,"You lost.");
+		}
 	}
 	
 	public void paintComponent(Graphics g) {

@@ -3,10 +3,7 @@ import java.awt.Component;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
-
 import javax.swing.JFrame;
 
 public class MyMouseAdapter extends MouseAdapter {
@@ -14,6 +11,7 @@ private Random generator = new Random();
 private int flaggedBombs = 0;  
 public Minesweeper myMinesweeper;
 private boolean enabled = true; 
+
 
 public void mousePressed(MouseEvent e) {
 		if (!enabled) {
@@ -61,6 +59,7 @@ public void mousePressed(MouseEvent e) {
 				}
 			}
 			enabled = false;
+			myPanel.announceDidWinMessage(true);
 		}
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
@@ -174,7 +173,9 @@ public void mouseReleased(MouseEvent e) {
 									}
 								}
 								enabled = false;
-							} 
+								myPanel.announceDidWinMessage(false);
+
+							}
 							
 							if(bombed){
 								for(int i = 0; i<column; i++) {
