@@ -131,7 +131,7 @@ public class Minesweeper {
 			for(int j=y; j< limitJ; j++){
 				if(checkBomb(i,j)){
 					amount+=1;
-				}
+				}				
 			}
 		}
 	
@@ -153,7 +153,7 @@ public class Minesweeper {
 	}
 	
 	private void checkEmpty(int x, int y) {
-		Boolean[][] checked = new Boolean[column][row];
+		/*Boolean[][] checked = new Boolean[column][row];
 		
 		String bombAround = checkBombsArround(x, y); 
 		int numBommbAround = Integer.parseInt(bombAround);
@@ -185,18 +185,28 @@ public class Minesweeper {
 											checkEmpty(x+1, y-1);
 											if(!(x+1>=column&&y+1>=row)) {
 												checkEmpty(x+1, y+1);
-												/*if(!(y+1>=row)) {
+												if(!(y+1>=row)) {
 													checkEmpty(x, y+1);
 													if(!(y-1<0)) {
 														checkEmpty(x, y-1);
 													}
-												}*/
+												}
 											}
 										}
 									}
 								}
 							}
-						}  
+						}
+						
+			//		checkEmpty(x-1, y);
+				//	checkEmpty(x-1, y+1);
+					checkEmpty(x+1, y);
+					checkEmpty(x-1, y-1);
+					checkEmpty(x+1, y-1);
+					checkEmpty(x+1, y+1);
+					checkEmpty(x, y+1);
+					checkEmpty(x, y-1);
+						
 					} else if(numBommbAround>0){
 						empty[x][y] = bombAround; 
 						checked[x][y] = true; 
@@ -207,7 +217,84 @@ public class Minesweeper {
 			
 		} else {
 			return; 
-		}
+		}*/
+		
+		
+			int amount = 0;
+			
+			int limitI = 0; 
+			int limitJ = 0; 
+			
+			if((x>0)&&(y>0)&&(x<8)&&(y<8)){
+				x-=1;
+				y-=1;		
+				
+				limitI = (x+3); 
+				limitJ = (y+3); 
+					
+				
+			} else if(x==0 && y==0){
+				limitI = (x+2);
+				limitJ = (y+2);
+			} else if(x==0 && y==8){
+				y-=1;
+				
+				limitI = (x+2);
+				limitJ = (y+2);
+			} else if(x==8 && y==0){
+				x-=1;
+				
+				limitI = (x+2);
+				limitJ = (y+2);
+			} else if(x==8 && y==8){
+				x-=1;
+				y-=1;
+				
+				limitI = (x+2);
+				limitJ = (y+2);
+				
+			} else if(x==0 && y>0 && y<8){
+				y-=1;
+				
+				limitI = (x+2);
+				limitJ = (y+3);
+				
+			} else if(x==8 && y>0 && y<8){
+				y-=1;
+				x-=1;
+				
+				limitI = (x+2);
+				limitJ = (y+3);
+				
+			} else if(y==0 && x>0 && x<8){
+				x-=1;
+				
+				limitI = (x+3);
+				limitJ = (y+2);
+				
+			} else if(y==8 && x>0 && x<8){
+				x-=1;
+				y-=1;
+				
+				limitI = (x+3);
+				limitJ = (y+2);
+						
+			}
+			String bombAround = checkBombsArround(x, y); 
+			int numBombAround = Integer.parseInt(bombAround);
+			
+			for(int i = x; i< limitI; i++){
+				for(int j=y; j< limitJ; j++){
+					bombAround = checkBombsArround(i, j); 
+					numBombAround = Integer.parseInt(bombAround);
+					if(numBombAround==0) {
+						empty[i][j] = "empty";
+					} else if(numBombAround>0) {
+						empty[i][j] = bombAround;
+					} 
+				}
+			}
+		
 	}
 	
 	

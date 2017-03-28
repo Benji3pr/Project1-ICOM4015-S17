@@ -172,7 +172,7 @@ public void mouseReleased(MouseEvent e) {
 										myPanel.repaint();
 									}
 								}
-								enabled = false;
+								//enabled = false;
 								myPanel.announceDidWinMessage(false);
 
 							}
