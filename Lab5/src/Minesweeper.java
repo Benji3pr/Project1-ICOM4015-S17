@@ -231,8 +231,6 @@ public class Minesweeper {
 				
 				limitI = (x+3); 
 				limitJ = (y+3); 
-					
-				
 			} else if(x==0 && y==0){
 				limitI = (x+2);
 				limitJ = (y+2);

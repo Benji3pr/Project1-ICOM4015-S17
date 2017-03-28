@@ -202,18 +202,27 @@ public void mouseReleased(MouseEvent e) {
 									myPanel.numOfBombs[gridX][gridY]=(num);
 								} else if(numAround==0) {
 									String[][] emptySpaces = myMinesweeper.getEmptySpaces(gridX, gridY);
+									String[][] secondEmpty = null;
 									
-									for (int i = 0; i < column; i++) {
-										for (int j = 0; j < row; j++) {
-											if(emptySpaces[i][j]!=null) {
-												if(emptySpaces[i][j]=="empty") {
-													newColor = Color.white;  
-												} else {
-													myPanel.numOfBombs[i][j]=(emptySpaces[i][j]);
-													newColor = Color.white; 
-													
+									int checked = 0; 
+									
+									while(checked<81) {
+										for (int i = 0; i < column; i++) {
+											for (int j = 0; j < row; j++) {
+												if(emptySpaces[i][j]!=null) {
+													if(emptySpaces[i][j]=="empty") {
+														secondEmpty = myMinesweeper.getEmptySpaces(i, j);
+														emptySpaces = append(emptySpaces, secondEmpty);
+														
+														checked++; 
+														
+														newColor = Color.white;  
+													} else {
+														myPanel.numOfBombs[i][j]=(emptySpaces[i][j]);
+														newColor = Color.white;
+													}
+													myPanel.colorArray[i][j] = newColor;
 												}
-												myPanel.colorArray[i][j] = newColor;
 											}
 										}
 									}
@@ -238,6 +247,14 @@ public void mouseReleased(MouseEvent e) {
 			//Do nothing
 			break;
 		}
+}
+
+public String[][] append(String[][] a, String[][] b) {
+	String[][] result = new String[a.length+b.length][]; 
+	System.arraycopy(a, 0, result, 0, a.length);
+	System.arraycopy(b, 0, result, a.length, b.length);
+	
+	return result;
 }
 
 public void disableMouse(MouseEvent e) {
