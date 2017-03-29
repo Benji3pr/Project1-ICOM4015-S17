@@ -16,7 +16,7 @@ public class Minesweeper {
 		setBombNum(bombs);
 		
 		generateBombs(); 
-		printBombs();
+		
 	}
 	public int getBombColumn() {
 		return column;
@@ -57,13 +57,7 @@ public class Minesweeper {
 		return false;
 	}
 
-	public void printBombs() {
-		for(int i = 0; i<column; i++) {
-			for(int j = 0; j<row; j++) {
-				System.out.println("bomb in " + i + ", " + j + ":" + bombs[i][j]);
-			}
-		}
-	}
+
 	
 	public String checkBombsArround(int x, int y){
 		int amount = 0;
@@ -152,76 +146,7 @@ public class Minesweeper {
 		return myPanel;
 	}
 	
-	private void checkEmpty(int x, int y) {
-		/*Boolean[][] checked = new Boolean[column][row];
-		
-		String bombAround = checkBombsArround(x, y); 
-		int numBommbAround = Integer.parseInt(bombAround);
-		
-		boolean inBoundsX = (x >= 0) && (x < column);
-		boolean inBoundsY = (y >= 0) && (y < row);
-		
-		if(inBoundsX&&inBoundsY) {
-			
-			if(checked[x][y]==null) {
-				checked[x][y] = false; 
-			}
-			
-			if(!checked[x][y]) {
-				if(!checkBomb(x, y)) {
-					if(numBommbAround==0) {
-						empty[x][y] = "empty"; 
-						checked[x][y] = true; 
-						
-						if(!(x-1<0)) {
-							checkEmpty(x-1, y);
-							if(!(x-1<0&&y+1>=row)) { 
-								checkEmpty(x-1, y+1);
-								if(!(!(x+1>=column))) { 
-									checkEmpty(x+1, y);
-									if(!(x-1<0&&y-1<0)) {
-										checkEmpty(x-1, y-1);
-										if(!(x-1<0&&x+1>=column)) {
-											checkEmpty(x+1, y-1);
-											if(!(x+1>=column&&y+1>=row)) {
-												checkEmpty(x+1, y+1);
-												if(!(y+1>=row)) {
-													checkEmpty(x, y+1);
-													if(!(y-1<0)) {
-														checkEmpty(x, y-1);
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-						
-			//		checkEmpty(x-1, y);
-				//	checkEmpty(x-1, y+1);
-					checkEmpty(x+1, y);
-					checkEmpty(x-1, y-1);
-					checkEmpty(x+1, y-1);
-					checkEmpty(x+1, y+1);
-					checkEmpty(x, y+1);
-					checkEmpty(x, y-1);
-						
-					} else if(numBommbAround>0){
-						empty[x][y] = bombAround; 
-						checked[x][y] = true; 
-					}
-				}
-			}
-			
-			
-		} else {
-			return; 
-		}*/
-		
-		
-			int amount = 0;
-			
+	private void checkEmpty(int x, int y) {			
 			int limitI = 0; 
 			int limitJ = 0; 
 			

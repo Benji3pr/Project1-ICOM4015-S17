@@ -3,11 +3,9 @@ import java.awt.Component;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
 import javax.swing.JFrame;
 
 public class MyMouseAdapter extends MouseAdapter {
-private Random generator = new Random();
 private int flaggedBombs = 0;  
 public Minesweeper myMinesweeper;
 private boolean enabled = true; 
@@ -51,9 +49,9 @@ public void mousePressed(MouseEvent e) {
 						myPanel.colorArray[i][j] = Color.red;
 					} else if(num>0){
 						myPanel.numOfBombs[i][j]=(bombAround);
-						myPanel.colorArray[i][j] = Color.white;
+						myPanel.colorArray[i][j] = Color.GRAY;
 					} else {
-						myPanel.colorArray[i][j] = Color.white;
+						myPanel.colorArray[i][j] = Color.GRAY;
 					}
 					myPanel.repaint();
 				}
@@ -75,13 +73,13 @@ public void mousePressed(MouseEvent e) {
 			Color oldColor = myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
 
 			if(oldColor.equals(Color.RED)){
-				Color newColor = Color.GRAY;
+				Color newColor = Color.WHITE;
 
 				myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 				myPanel.repaint();
 			}
 
-			else if (oldColor.equals(Color.GRAY)){
+			else if (oldColor.equals(Color.WHITE)){
 				Color newColor = Color.RED;
 				
 				if(myMinesweeper.checkBomb(gridX, gridY)){
@@ -149,7 +147,7 @@ public void mouseReleased(MouseEvent e) {
 							boolean bombed = false;
 							int column = myMinesweeper.getBombColumn();
 							int row = myMinesweeper.getBombRow();
-							Color newColor = Color.white; 
+							Color newColor = Color.GRAY; 
 							String num;
 							int numAround; 
 							
@@ -182,7 +180,7 @@ public void mouseReleased(MouseEvent e) {
 									for(int j = 0; j<row; j++) {
 										Color currentColor = myPanel.colorArray[i][j];
 
-										if(currentColor.equals(Color.white)){
+										if(currentColor.equals(Color.GRAY)){
 											num = myMinesweeper.checkBombsArround(i, j);
 											numAround = Integer.parseInt(num);
 											if(numAround>0){
@@ -193,7 +191,7 @@ public void mouseReleased(MouseEvent e) {
 								}								
 							}
 							
-							if(newColor.equals(Color.white)){
+							if(newColor.equals(Color.GRAY)){
 								num = myMinesweeper.checkBombsArround(gridX, gridY);
 								numAround = Integer.parseInt(num);
 								
@@ -206,7 +204,7 @@ public void mouseReleased(MouseEvent e) {
 									
 									int checked = 0; 
 									
-									while(checked<81) {
+									while(checked<(81*81)) {
 										for (int i = 0; i < column; i++) {
 											for (int j = 0; j < row; j++) {
 												if(emptySpaces[i][j]!=null) {
@@ -216,10 +214,10 @@ public void mouseReleased(MouseEvent e) {
 														
 														checked++; 
 														
-														newColor = Color.white;  
+														newColor = Color.GRAY;  
 													} else {
 														myPanel.numOfBombs[i][j]=(emptySpaces[i][j]);
-														newColor = Color.white;
+														newColor = Color.GRAY;
 													}
 													myPanel.colorArray[i][j] = newColor;
 												}
@@ -277,9 +275,7 @@ public void disableMouse(MouseEvent e) {
 	myPanel.y = y;
 	myPanel.mouseDownGridX = myPanel.getGridX(x, y);
 	myPanel.mouseDownGridY = myPanel.getGridY(x, y);
-	myPanel.repaint();
-	int gridX = myPanel.getGridX(x, y);
-	int gridY = myPanel.getGridY(x, y);
+	myPanel.repaint();	
 
 	if(flaggedBombs==myMinesweeper.getBombCount()) {
 		String bombAround; 
@@ -292,9 +288,9 @@ public void disableMouse(MouseEvent e) {
 					myPanel.colorArray[i][j] = Color.red;
 				} else if(num>0){
 					myPanel.numOfBombs[i][j]=(bombAround);
-					myPanel.colorArray[i][j] = Color.white;
+					myPanel.colorArray[i][j] = Color.GRAY;
 				} else {
-					myPanel.colorArray[i][j] = Color.white;
+					myPanel.colorArray[i][j] = Color.GRAY;
 				}
 				myPanel.repaint();
 			}
