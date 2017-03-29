@@ -11,8 +11,7 @@ public class Main {
 		myFrame.add(myPanel);
 
 		MyMouseAdapter myMouseAdapter = new MyMouseAdapter();
-		myFrame.addMouseListener(myMouseAdapter);
-		
+		myFrame.addMouseListener(myMouseAdapter);		
 		
 		int bombNum = 10; 
 		int columns = myPanel.getColumnSize(); 
