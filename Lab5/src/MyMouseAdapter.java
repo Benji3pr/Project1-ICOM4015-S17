@@ -10,7 +10,6 @@ private int flaggedBombs = 0;
 public Minesweeper myMinesweeper;
 private boolean enabled = true; 
 
-
 public void mousePressed(MouseEvent e) {
 		if (!enabled) {
 		    return;
