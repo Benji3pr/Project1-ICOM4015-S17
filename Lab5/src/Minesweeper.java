@@ -13,8 +13,7 @@ public class Minesweeper {
 	Minesweeper(int columns, int rows, int bombs) {
 		setBombColumn(columns);
 		setBombRow(rows);
-		setBombNum(bombs);
-		
+		setBombNum(bombs);		
 		generateBombs(); 
 		
 	}
@@ -56,8 +55,6 @@ public class Minesweeper {
 		}
 		return false;
 	}
-
-
 	
 	public String checkBombsArround(int x, int y){
 		int amount = 0;
@@ -216,12 +213,8 @@ public class Minesweeper {
 						empty[i][j] = bombAround;
 					} 
 				}
-			}
-		
-	}
-	
-	
-	
+			}		
+	}	
 	
 	private void generateBombs() {
 		int x; 

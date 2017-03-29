@@ -17,8 +17,7 @@ public class Main {
 		int columns = myPanel.getColumnSize(); 
 		int rows = myPanel.getRowsSize(); 
 		
-		Minesweeper mainMinesweeper= new Minesweeper(columns, rows, bombNum); 
-		
+		Minesweeper mainMinesweeper= new Minesweeper(columns, rows, bombNum); 		
 		myMouseAdapter.myMinesweeper = mainMinesweeper; 
 		
 		myFrame.setVisible(true);
